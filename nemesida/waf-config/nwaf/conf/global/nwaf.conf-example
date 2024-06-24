@@ -1,0 +1,298 @@
+##
+# Example of Nemesida WAF settings
+# The file settings are presented as an example. To use, copy the necessary parameters
+# to file nwaf.conf or use the web interface for managing settings (only for the commercial version)
+##
+
+##
+# License key and signature database
+##
+
+# nwaf_license_key none;
+# nwaf_rules /etc/nginx/nwaf/rules.bin;
+
+##
+# Nemesida WAF API and proxy settings
+##
+
+# nwaf_sys_proxy none;
+# nwaf_api_proxy none;
+# nwaf_api_conf host=none;
+
+##
+# Nemesida WAF activation for virtual host
+##
+
+# nwaf_host_enable *;
+# nwaf_host_enable example.com;
+# nwaf_host_enable .example.com;
+# nwaf_host_enable *.example.com;
+
+##
+# Ban settings
+##
+
+# nwaf_limit rate=5r/m block_time=600;
+# nwaf_limit rate=5r/m block_time=0 domain=example.com;
+
+##
+# Unban settings using captcha
+##
+
+# nwaf_ban_captcha_host *;
+# nwaf_ban_captcha_host example.com;
+# nwaf_ban_captcha_host .example.com;
+# nwaf_ban_captcha_host *.example.com;
+
+# nwaf_ban_captcha_url example.com/captcha.php;
+# nwaf_ban_captcha_path /captcha_path;
+
+# nwaf_ban_captcha_token token_for_unban;
+
+##
+# MLA settings
+##
+
+# nwaf_mla 127.0.0.1:5101 mla_score:2;
+# nwaf_mla_api 127.0.0.1:5102;
+# nwaf_mla_mgmt 127.0.0.1:5103;
+
+# nwaf_mla_host_lm *;
+# nwaf_mla_host_lm example.com;
+# nwaf_mla_host_lm .example.com;
+# nwaf_mla_host_lm *.example.com;
+
+##
+# MLC settings
+##
+
+# nwaf_rmq_host_exclude *;
+# nwaf_rmq_host_exclude example.com;
+# nwaf_rmq_host_exclude .example.com;
+# nwaf_rmq_host_exclude *.example.com;
+
+# nwaf_ai_extra_host_lm *;
+# nwaf_ai_extra_host_lm example.com;
+# nwaf_ai_extra_host_lm .example.com;
+# nwaf_ai_extra_host_lm *.example.com;
+
+# nwaf_ai_extra_host_wl *;
+# nwaf_ai_extra_host_wl example.com;
+# nwaf_ai_extra_host_wl .example.com;
+# nwaf_ai_extra_host_wl *.example.com;
+
+# nwaf_bf_detect_host_lm *;
+# nwaf_bf_detect_host_lm example.com;
+# nwaf_bf_detect_host_lm .example.com;
+# nwaf_bf_detect_host_lm *.example.com;
+
+# nwaf_ddos_detect_host_lm *;
+# nwaf_ddos_detect_host_lm example.com;
+# nwaf_ddos_detect_host_lm .example.com;
+# nwaf_ddos_detect_host_lm *.example.com;
+
+##
+# RabbitMQ and AI extra global settings
+##
+
+# nwaf_rmq host=127.0.0.1 user=guest password=guest;
+
+##
+# ClamAV settings
+##
+
+# nwaf_clamav 127.0.0.1:3310;
+# nwaf_clamav 127.0.0.1:3310 FILE_ONLY;
+
+## Add file's hash to ClamAV whitelist
+# nwaf_clamav_wl FILE-MD5-HASH;
+
+##
+# ICAP AV interface settings
+##
+
+# nwaf_icap_av 127.0.0.1:1344/avscan;
+# nwaf_icap_av 127.0.0.1:1344/avscan FILE_ONLY;
+# nwaf_icap_av 127.0.0.1:1344/avscan PREVIEW_SIZE=1024;
+# nwaf_icap_av 127.0.0.1:1344/avscan FILE_ONLY PREVIEW_SIZE=1024;
+
+## Add file's hash to ICAP AV interface whitelist
+# nwaf_icap_av_wl FILE-MD5-HASH;
+
+##
+# Global WL/LM policy
+##
+
+## Exclude request processing for specific client's IP
+# nwaf_ip_wl x.x.x.x;
+# nwaf_ip_wl x.x.x.x domain=example.com;
+# nwaf_ip_wl x.x.x.x domain=.example.com;
+# nwaf_ip_wl x.x.x.x domain=*.example.com;
+
+## Add client's IP to the LM mode (like an IDS mode)
+# nwaf_ip_lm x.x.x.x;
+# nwaf_ip_lm x.x.x.x domain=example.com;
+# nwaf_ip_lm x.x.x.x domain=.example.com;
+# nwaf_ip_lm x.x.x.x domain=*.example.com;
+
+## Exclude request processing for virtual host
+# nwaf_host_wl *;
+# nwaf_host_wl example.com;
+# nwaf_host_wl .example.com;
+# nwaf_host_wl *.example.com;
+
+## Add vhosts to the LM mode (like an IDS mode)
+# nwaf_host_lm *;
+# nwaf_host_lm example.com;
+# nwaf_host_lm .example.com;
+# nwaf_host_lm *.example.com;
+
+## Exclude request processing for specific URL
+# nwaf_url_wl *;
+# nwaf_url_wl example.com;
+# nwaf_url_wl .example.com;
+# nwaf_url_wl *.example.com;
+# nwaf_url_wl example.com/path;
+# nwaf_url_wl .example.com/path;
+# nwaf_url_wl *.example.com/path;
+# nwaf_url_wl example.com/path*;
+# nwaf_url_wl .example.com/path*;
+# nwaf_url_wl *.example.com/path*;
+
+##
+# Exclude request body processing for PUT method
+##
+
+# nwaf_put_body_exclude *;
+# nwaf_put_body_exclude example.com;
+# nwaf_put_body_exclude .example.com;
+# nwaf_put_body_exclude *.example.com;
+
+##
+# Exclude request body processing for POST method
+##
+
+# nwaf_post_body_exclude *;
+# nwaf_post_body_exclude example.com;
+# nwaf_post_body_exclude .example.com;
+# nwaf_post_body_exclude *.example.com;
+
+##
+# Exclude request body processing for domain or URL
+##
+
+# nwaf_body_exclude *;
+# nwaf_body_exclude example.com;
+# nwaf_body_exclude .example.com;
+# nwaf_body_exclude *.example.com;
+# nwaf_body_exclude example.com/uploads;
+# nwaf_body_exclude example.com/uploads.php;
+# nwaf_body_exclude example.com/uploads*;
+# nwaf_body_exclude example.com/uploads/*;
+
+##
+# Exclude request binary body content processing for domain or URL
+##
+
+# nwaf_body_bin_exclude *;
+# nwaf_body_bin_exclude example.com;
+# nwaf_body_bin_exclude .example.com;
+# nwaf_body_bin_exclude *.example.com;
+# nwaf_body_bin_exclude example.com/uploads;
+# nwaf_body_bin_exclude example.com/uploads.php;
+# nwaf_body_bin_exclude example.com/uploads*;
+# nwaf_body_bin_exclude example.com/uploads/*;
+
+##
+# Exclude processing of the request for compliance with the RFC for specific domain or URL
+##
+
+# nwaf_rfc_violation_lm *;
+# nwaf_rfc_violation_lm example.com;
+# nwaf_rfc_violation_lm .example.com;
+# nwaf_rfc_violation_lm *.example.com;
+# nwaf_rfc_violation_lm */path;
+# nwaf_rfc_violation_lm example.com/path;
+# nwaf_rfc_violation_lm .example.com/path;
+# nwaf_rfc_violation_lm *.example.com/path;
+# nwaf_rfc_violation_lm */path*;
+# nwaf_rfc_violation_lm example.com/path*;
+# nwaf_rfc_violation_lm .example.com/path*;
+# nwaf_rfc_violation_lm *.example.com/path*;
+
+# nwaf_rfc_violation_wl *;
+# nwaf_rfc_violation_wl example.com;
+# nwaf_rfc_violation_wl .example.com;
+# nwaf_rfc_violation_wl *.example.com;
+# nwaf_rfc_violation_wl */path;
+# nwaf_rfc_violation_wl example.com/path;
+# nwaf_rfc_violation_wl .example.com/path;
+# nwaf_rfc_violation_wl *.example.com/path;
+# nwaf_rfc_violation_wl */path*;
+# nwaf_rfc_violation_wl example.com/path*;
+# nwaf_rfc_violation_wl .example.com/path*;
+# nwaf_rfc_violation_wl *.example.com/path*;
+
+# nwaf_geoip_mla_disable *;
+# nwaf_geoip_mla_disable example.com;
+# nwaf_geoip_mla_disable .example.com;
+# nwaf_geoip_mla_disable *.example.com;
+
+##
+# Enable logging for all matched rules
+##
+
+# nwaf_log_mr_all;
+# nwaf_log_mr_all domain=example.com;
+# nwaf_log_mr_all domain=.example.com;
+# nwaf_log_mr_all domain=*.example.com;
+
+##
+# Disable Base64 decoding
+##
+
+# nwaf_b64_decode_disable z:URL|ARGS|HEADERS|BODY;
+# nwaf_b64_decode_disable */some_path/ z:URL|ARGS|HEADERS|BODY;
+# nwaf_b64_decode_disable example.com/some_path/ z:URL|ARGS|HEADERS|BODY;
+# nwaf_b64_decode_disable .example.com/some_path/ z:URL|ARGS|HEADERS|BODY;
+# nwaf_b64_decode_disable *.example.com/some_path/ z:URL|ARGS|HEADERS|BODY;
+
+##
+# OpenAPI settings
+##
+
+## Add client's IP to the whitelist for OpenAPI analysis
+# nwaf_openapi_ip_wl x.x.x.x;
+# nwaf_openapi_ip_wl x.x.x.x domain=example.com;
+# nwaf_openapi_ip_wl x.x.x.x domain=.example.com;
+# nwaf_openapi_ip_wl x.x.x.x domain=*.example.com;
+
+## Add client's IP to the LM mode for OpenAPI analysis
+# nwaf_openapi_ip_lm x.x.x.x;
+# nwaf_openapi_ip_lm x.x.x.x domain=example.com;
+# nwaf_openapi_ip_lm x.x.x.x domain=.example.com;
+# nwaf_openapi_ip_lm x.x.x.x domain=*.example.com;
+
+## Exclude OpenAPI analysis for specific URL
+# nwaf_openapi_url_wl *;
+# nwaf_openapi_url_wl example.com;
+# nwaf_openapi_url_wl .example.com;
+# nwaf_openapi_url_wl *.example.com;
+# nwaf_openapi_url_wl example.com/path;
+# nwaf_openapi_url_wl .example.com/path/;
+# nwaf_openapi_url_wl *.example.com/path/to;
+# nwaf_openapi_url_wl example.com/path*;
+# nwaf_openapi_url_wl .example.com/path/*;
+# nwaf_openapi_url_wl *.example.com/path/to*;
+
+## Set OpenAPI analysis to the LM mode for specific URL
+# nwaf_openapi_url_lm *;
+# nwaf_openapi_url_lm example.com;
+# nwaf_openapi_url_lm .example.com;
+# nwaf_openapi_url_lm *.example.com;
+# nwaf_openapi_url_lm example.com/path;
+# nwaf_openapi_url_lm .example.com/path/;
+# nwaf_openapi_url_lm *.example.com/path/to;
+# nwaf_openapi_url_lm example.com/path*;
+# nwaf_openapi_url_lm .example.com/path/*;
+# nwaf_openapi_url_lm *.example.com/path/to/*;
