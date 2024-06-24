@@ -1,0 +1,36 @@
+services:
+  modesec:
+    build:
+      context: .
+    command: nginx
+    ports:
+      - 8080:80
+    volumes:
+      - ./modesecurity/nginx:/etc/nginx
+
+  nemesida:
+    image: nemesida/nwaf-dyn-ce
+    platform: linux/amd64
+    volumes:
+      - ./nemesida/waf-config/:/nginx.configs
+    ports:
+      - 8081:80
+    profiles:
+      - donotstart
+
+  echoserver:
+    image: traefik/whoami
+    # ports:
+    #   - 8082:80
+
+  bench:
+    image: wallarm/gotestwaf
+    volumes:
+      - ./reports:/app/reports
+    profiles:
+      - donotstart
+
+# docker compose run bench --url=http://localhost --noEmailReport
+#
+# touch nemesida/waf-config/first-launch
+# docker compose run nemesida
